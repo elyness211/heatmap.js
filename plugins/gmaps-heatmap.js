@@ -12,7 +12,6 @@
   if (typeof module !== "undefined" && module.exports) {
     module.exports = factory();
   } else if (typeof define === "function" && define.amd) {
-    define(factory);
   } else {
     context[name] = factory();
   }
@@ -170,8 +169,8 @@
     var layerProjection = this.getProjection();
     var layerOffset = layerProjection.fromLatLngToDivPixel(topLeft);
     var radiusMultiplier = this.cfg.scaleRadius ? scale : 1;
-    var localMax = 0;
-    var localMin = 0;
+    var localMax = 10;
+    var localMin = 1;
     var valueField = this.cfg.valueField;
 
 
@@ -181,13 +180,13 @@
       var latlng = entry.latlng;
 
 
-      // we don't wanna render points that are not even on the map ;-)
-      if (!bounds.contains(latlng)) {
-        continue;
-      }
+      // we don't wanna render points that are not even on the map ;-). 
+      //if (!bounds.contains(latlng)) {
+      //  continue;
+    //  }
       // local max is the maximum within current bounds
-      localMax = Math.max(value, localMax);
-      localMin = Math.min(value, localMin);
+      //localMax = Math.max(value, localMax);
+   //   localMin = Math.min(value, localMin);
 
       var point = layerProjection.fromLatLngToDivPixel(latlng);
       var latlngPoint = { x: Math.round(point.x - layerOffset.x), y: Math.round(point.y - layerOffset.y) };
